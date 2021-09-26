@@ -123,10 +123,12 @@
     <Compile Include="Controllers\HobbyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Controllers\PersonHobbyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\HobbyModel.cs" />
+    <Compile Include="Models\PersonHobbyModel.cs" />
     <Compile Include="Models\PersonModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -172,6 +174,11 @@
     <Content Include="Views\Hobby\ViewHobbies.cshtml" />
     <Content Include="Views\Hobby\DeleteHobby.cshtml" />
     <Content Include="Views\Hobby\Delete.cshtml" />
+    <Content Include="Views\Person\Create.cshtml" />
+    <Content Include="Views\Person\Delete.cshtml" />
+    <Content Include="Views\Person\Details.cshtml" />
+    <Content Include="Views\PersonHobby\Details.cshtml" />
+    <Content Include="Views\PersonHobby\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

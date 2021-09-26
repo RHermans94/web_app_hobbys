@@ -19,8 +19,12 @@ namespace DataLibrary.BusinessLogic
             };
 
 
-            string sql = @"insert into dbo.PersonHobbies (PersonId, HobbyId) values (@PersonId, @HobbyId);";
+            //string sql = @"insert into dbo.PersonHobbies (PersonId, HobbyId) values (@PersonId, @HobbyId);";
 
+
+            string sql = @"INSERT INTO dbo.PersonHobbies (PersonId, HobbyId)
+SELECT @PersonId, @HobbyId 
+WHERE NOT EXISTS (SELECT * FROM dbo.PersonHobbies WHERE PersonId = @PersonId AND HobbyId = @HobbyId)";
 
             return SqlDataAccess.SaveData(sql, data);
         }
@@ -43,6 +47,13 @@ namespace DataLibrary.BusinessLogic
             string sql = string.Format("SELECT Id, Name from dbo.Hobby WHERE Id IN (SELECT HobbyId FROM dbo.PersonHobbies WHERE PersonId = {0})", personId);
 
             return SqlDataAccess.LoadData<HobbyModel>(sql);
+        }
+
+        public static int DeletePerson(int id)
+        {
+            string sql = string.Format("DELETE FROM dbo.PersonHobbies WHERE PersonId={0};", id);
+
+            return SqlDataAccess.DeleteData<PersonModel>(sql);
         }
     }
 }

@@ -1,0 +1,41 @@
+﻿@model AssignmentApp.Models.PersonHobbyModel
+
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add</h2>
+
+<div>
+    <h4>PersonHobbyModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+    </dl>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Hobbies[0].Name)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Hobbies)
+        {
+            <tr>
+                <td>
+                    @using (Html.BeginForm("Add", "PersonHobby", new { personId = Model.Person.Id, hobbyId = item.Id }, FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.DisplayFor(modelItem => item.Name)
+                        <button>Add</button>
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
