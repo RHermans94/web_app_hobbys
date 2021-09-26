@@ -42,9 +42,6 @@ namespace DataLibrary.BusinessLogic
         {
             string sql = string.Format("SELECT Id, Name from dbo.Hobby WHERE Id IN (SELECT HobbyId FROM dbo.PersonHobbies WHERE PersonId = {0})", personId);
 
-            //sql = string.Format("SELECT PersonId, HobbyId FROM dbo.PersonHobbies WHERE PersonId = {0}", personId);
-            
-
             return SqlDataAccess.LoadData<HobbyModel>(sql);
         }
     }
