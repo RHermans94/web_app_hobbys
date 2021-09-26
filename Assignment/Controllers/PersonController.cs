@@ -28,6 +28,7 @@ namespace AssignmentApp.Controllers
             {
                 persons.Add(new PersonModel
                 {
+                    Id = row.Id,
                     FirstName = row.FirstName,
                     LastName = row.LastName,
                     LastNamePrefix = row.LastNamePrefix
@@ -38,81 +39,67 @@ namespace AssignmentApp.Controllers
             return View(persons);
         }
 
-        public ActionResult RegisterNew()
-        {
-            ViewBag.Message = "Register a new person.";
 
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult RegisterNew(PersonModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                int recordsCreated = CreatePerson(
-                    model.FirstName,
-                    model.LastName,
-                    model.LastNamePrefix);
-                return RedirectToAction("ViewPersons");
-            }
-
-            return View();
-        }
         // GET: Person/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+
+            var data = GetPerson(id);
+            PersonModel person = new PersonModel
+            {
+                Id = data.Id,
+                FirstName = data.FirstName,
+                LastName = data.LastName,
+                LastNamePrefix = data.LastNamePrefix
+            };
+
+            return View(person);
         }
 
         // GET: Person/Create
         public ActionResult Create()
         {
+            ViewBag.Message = "Create a new person.";
             return View();
         }
 
         // POST: Person/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(PersonModel model)
         {
             try
             {
-                // TODO: Add insert logic here
+                if (ModelState.IsValid)
+                {
+                    int recordsCreated = CreatePerson(
+                        model.FirstName,
+                        model.LastName,
+                        model.LastNamePrefix);
+                    return RedirectToAction("ViewPersons");
+                }
 
-                return RedirectToAction("Index");
             }
             catch
             {
-                return View();
             }
-        }
-
-        // GET: Person/Edit/5
-        public ActionResult Edit(int id)
-        {
             return View();
-        }
-
-        // POST: Person/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: Person/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+
+            var data = GetPerson(id);
+            PersonModel person = new PersonModel
+            {
+                Id = data.Id,
+                FirstName = data.FirstName,
+                LastName = data.LastName,
+                LastNamePrefix = data.LastNamePrefix
+            };
+
+            return View(person);
         }
 
         // POST: Person/Delete/5
@@ -123,7 +110,9 @@ namespace AssignmentApp.Controllers
             {
                 // TODO: Add delete logic here
 
-                return RedirectToAction("Index");
+                DeletePerson(id);
+                return RedirectToAction("ViewPersons");
+
             }
             catch
             {
