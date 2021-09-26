@@ -30,5 +30,23 @@ namespace DataLibrary.BusinessLogic
 
             return SqlDataAccess.LoadData<PersonModel>(sql);
         }
+        public static int DeletePerson(int id)
+        {
+            PersonHobbyProcessor.DeletePerson(id);
+
+            string sql = string.Format("DELETE FROM dbo.Person WHERE Id={0};", id);
+
+            return SqlDataAccess.DeleteData<PersonModel>(sql);
+        }
+        public static PersonModel GetPerson(int id)
+        {
+            string sql = string.Format("select Id, FirstName, LastName, LastNamePrefix from dbo.Person WHERE Id={0};",id);
+            var items = SqlDataAccess.LoadData<PersonModel>(sql);
+            if (items.Count != 0)
+            {
+                return items.First();
+            }
+            return new PersonModel();
+        }
     }
 }
