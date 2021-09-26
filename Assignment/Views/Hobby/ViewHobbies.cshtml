@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<AssignmentApp.Models.HobbyModel>
 
 @{
-    ViewBag.Title = "ViewHobbies";
+    ViewBag.Title = "View Hobbies";
 }
 
-<h2>ViewHobbies</h2>
+<h2>View Hobbies</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -23,7 +23,7 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
         </td>
     </tr>
 }

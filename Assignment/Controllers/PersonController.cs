@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using PagedList;
 using static DataLibrary.BusinessLogic.PersonProcessor;
 
 namespace AssignmentApp.Controllers
@@ -17,7 +17,7 @@ namespace AssignmentApp.Controllers
             return View();
         }
 
-        public ActionResult ViewPersons()
+        public ActionResult ViewPersons(int? page)
         {
             ViewBag.Message = "Persons List.";
 
@@ -36,7 +36,9 @@ namespace AssignmentApp.Controllers
 
             }
 
-            return View(persons);
+            int pageNumber = (page ?? 1);
+            int maxItems = 20;
+            return View(persons.ToPagedList(pageNumber, 20));
         }
 
 

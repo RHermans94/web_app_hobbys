@@ -1,7 +1,9 @@
-﻿@model IEnumerable<AssignmentApp.Models.PersonModel>
+﻿@model PagedList.IPagedList<AssignmentApp.Models.PersonModel>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "ViewPersons";
+    ViewBag.Title = "View Persons";
 }
 
 <h2>View Persons</h2>
@@ -12,33 +14,38 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model[0].FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model[0].LastName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastNamePrefix)
+            @Html.DisplayNameFor(model => model[0].LastNamePrefix)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.FirstName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.LastName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.LastNamePrefix)
-    </td>
-    <td>
-        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        @Html.ActionLink("Details", "Details","PersonHobby", new { id = item.Id }, null)
-    </td>
-</tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastNamePrefix)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Details", "Details", "PersonHobby", new { id = item.Id }, null)
+            </td>
+        </tr>
+    }
 
 </table>
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("ViewPersons",
+    new { page }))

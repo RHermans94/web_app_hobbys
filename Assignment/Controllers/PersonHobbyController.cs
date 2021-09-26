@@ -21,6 +21,7 @@ namespace AssignmentApp.Controllers
         // GET: Person/Details/5
         public ActionResult Details(int id)
         {
+            ViewBag.Message = "Persons Hobbies overview.";
             PersonHobbyModel personHobby = new PersonHobbyModel();
 
             var data = GetPerson(id);
