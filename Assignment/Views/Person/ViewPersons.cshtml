@@ -1,0 +1,43 @@
+﻿@model IEnumerable<AssignmentApp.Models.PersonModel>
+
+@{
+    ViewBag.Title = "ViewPersons";
+}
+
+<h2>View Persons</h2>
+
+<p>
+    @Html.ActionLink("Add New Person", "RegisterNew")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastNamePrefix)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastNamePrefix)
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.Id */ })
+        </td>
+    </tr>
+}
+
+</table>
